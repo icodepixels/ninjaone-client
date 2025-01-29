@@ -1,0 +1,83 @@
+.action-button {
+  opacity: 0;
+}
+
+.action-column {
+  width: 20px;
+}
+
+.device-row-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.device-row-content .sub-content {
+  color: #6e6d7a;
+  display: flex;
+  flex-direction: row;
+  font-size: 0.75rem;
+  font-weight: 400;
+  gap: 4px;
+  line-height: 14.52px;
+}
+
+.device-row-content .title {
+  align-items: center;
+  display: flex;
+  font-size: 0.875rem;
+  font-weight: 500;
+  gap: 4px;
+}
+
+.device-table {
+  border-collapse: collapse;
+  min-width: 600px;
+  width: 100%;
+}
+
+.device-table td {
+  border-bottom: 1px solid #e7e8eb;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.device-table th {
+  border-bottom: 1px solid #cbcfd3;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 12px 12px 8px 12px;
+  text-align: left;
+}
+
+.device-table tbody tr:hover {
+  background-color: #f4f4f5;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.first-column-content:hover .action-button {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin: 20px;
+}
+
+/* Responsive design */
+@media screen and (max-width: 600px) {
+  .device-table {
+    font-size: 0.875rem;
+  }
+
+  .device-table th,
+  .device-table td {
+    padding: 8px;
+  }
+
+  .table-container {
+    margin: 10px;
+  }
+}
