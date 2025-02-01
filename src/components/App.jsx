@@ -1,4 +1,3 @@
-import '@/styles/App.css';
 import AppContent from '@/components/AppContent';
 import store from '@/store/store';
 import { Provider } from 'react-redux';

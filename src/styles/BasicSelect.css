@@ -1,0 +1,33 @@
+.select-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.select-icon {
+  pointer-events: none;
+  position: absolute;
+  right: 10px;
+  top: 30%;
+}
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 1px solid #d1d0d9;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: fit-content;
+  padding: 10px;
+  padding-right: 30px;
+  width: auto;
+}
+
+.select-wrapper select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #ffffff;
+  width: 100%;
+}

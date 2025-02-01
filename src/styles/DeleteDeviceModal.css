@@ -1,0 +1,17 @@
+.delete-modal-content h3 {
+  margin-bottom: 16px;
+}
+
+.delete-modal-content-text {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.delete-modal-content-text-device-name {
+  font-weight: 500;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+}

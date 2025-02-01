@@ -2,7 +2,7 @@ import '@/styles/DeviceTable.css';
 import PropTypes from 'prop-types';
 import DeviceTableRow from '@/components/DeviceTableRow';
 
-const DeviceTable = ({ data, handleActionButtonClick, handleRowClick }) => {
+const DeviceTable = ({ data, handleActionButtonClick }) => {
   return (
     <div className="table-container">
       <table className="device-table">
@@ -17,7 +17,6 @@ const DeviceTable = ({ data, handleActionButtonClick, handleRowClick }) => {
             <DeviceTableRow
               key={row.id}
               row={row}
-              handleRowClick={handleRowClick}
               handleActionButtonClick={handleActionButtonClick}
             />
           ))}
@@ -36,7 +35,6 @@ DeviceTable.propTypes = {
       hdd_capacity: PropTypes.string.isRequired,
     })
   ).isRequired,
-  handleRowClick: PropTypes.func.isRequired,
   handleActionButtonClick: PropTypes.func.isRequired,
 };
 

@@ -1,10 +1,26 @@
 import PropTypes from 'prop-types';
 import SVGIcon from '@/shared/SVGIcon';
+import { useEffect } from 'react';
 
-const DeviceTableRow = ({ row, handleActionButtonClick, handleRowClick }) => {
+const DeviceTableRow = ({ row, handleActionButtonClick }) => {
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.action-column')) {
+        document.querySelectorAll('.dropdown-menu.show').forEach((menu) => {
+          menu.classList.remove('show');
+        });
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
     <tr key={row.id} className="first-column-content">
-      <td onClick={() => handleRowClick(row.id)}>
+      <td>
         <div className="device-row-content">
           <div className="title">
             <SVGIcon
@@ -18,11 +34,15 @@ const DeviceTableRow = ({ row, handleActionButtonClick, handleRowClick }) => {
                       : 'Frame395'
               }
             />
-            {row.system_name}
+            <span className="title-text">{row.system_name}</span>
           </div>
           <div className="sub-content">
             <div className="subtitle">
-              <span>{row.type}</span> workstation
+              <span className="subtitle-text">
+                {row.type.charAt(0).toUpperCase() +
+                  row.type.slice(1).toLowerCase()}
+              </span>{' '}
+              workstation
             </div>{' '}
             - <div className="subtitle">{row.hdd_capacity} GB</div>
           </div>
@@ -30,9 +50,47 @@ const DeviceTableRow = ({ row, handleActionButtonClick, handleRowClick }) => {
       </td>
       <td
         className="action-column"
-        onClick={() => handleActionButtonClick(row.id)}
+        onClick={(e) => {
+          e.stopPropagation();
+          document.querySelectorAll('.dropdown-menu.show').forEach((menu) => {
+            if (menu !== e.currentTarget.querySelector('.dropdown-menu')) {
+              menu.classList.remove('show');
+            }
+          });
+          e.currentTarget
+            .querySelector('.dropdown-menu')
+            .classList.toggle('show');
+        }}
       >
-        <SVGIcon name="Frame402" className="action-button" />
+        <div className="dropdown">
+          <SVGIcon name="Frame402" className="action-button" />
+          <div className="dropdown-menu">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleActionButtonClick(row.id, 'edit');
+                e.currentTarget
+                  .closest('.dropdown-menu')
+                  .classList.remove('show');
+              }}
+              className="dropdown-item"
+            >
+              Edit
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleActionButtonClick(row.id, 'delete');
+                e.currentTarget
+                  .closest('.dropdown-menu')
+                  .classList.remove('show');
+              }}
+              className="dropdown-item delete"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
       </td>
     </tr>
   );
@@ -45,7 +103,6 @@ DeviceTableRow.propTypes = {
     type: PropTypes.string.isRequired,
     hdd_capacity: PropTypes.string.isRequired,
   }).isRequired,
-  handleRowClick: PropTypes.func.isRequired,
   handleActionButtonClick: PropTypes.func.isRequired,
 };
 

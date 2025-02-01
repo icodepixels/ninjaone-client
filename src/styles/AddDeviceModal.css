@@ -1,0 +1,35 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-group input {
+  border: 1px solid rgba(72, 68, 105, 0.25);
+  border-radius: 0.25rem;
+  color: #211f33;
+  padding: 10px;
+}
+
+.form-group input:focus {
+  border-color: #484469;
+  outline: none;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}

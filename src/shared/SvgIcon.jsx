@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import '@/styles/SvgIcon.css';
 const SvgIcon = ({ name, className = '', width = 16, height = 16 }) => {
   const [svgContent, setSvgContent] = useState('');
 
@@ -21,7 +21,7 @@ const SvgIcon = ({ name, className = '', width = 16, height = 16 }) => {
 
   return (
     <div
-      className={className}
+      className={`${className} svg-container`}
       style={{ width, height }}
       dangerouslySetInnerHTML={{ __html: svgContent }}
     />

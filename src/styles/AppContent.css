@@ -9,4 +9,44 @@
   justify-content: space-between;
   width: 100%;
   padding: 8px 0px;
+  margin-top: 16px;
+}
+
+.main {
+  position: relative;
+}
+
+.controls {
+  padding: 1.5rem 0;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.reset-filters-button {
+  margin-left: auto;
+}
+
+.search-input {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 200px;
+}
+
+.search-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.search-input {
+  padding-left: 35px;
 }

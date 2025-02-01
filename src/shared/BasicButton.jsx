@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import SvgIcon from '@/shared/SvgIcon';
+import '@/styles/BasicButton.css';
 
 const Button = ({
   children,
   variant = 'primary',
-  size = 'medium',
+  size = 'small',
   disabled = false,
   onClick,
   type = 'button',
@@ -12,47 +13,16 @@ const Button = ({
   startIcon,
   endIcon,
 }) => {
-  const baseStyles = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '8px',
-    padding:
-      size === 'small'
-        ? '8px 16px'
-        : size === 'large'
-          ? '16px 32px'
-          : '12px 24px',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    opacity: disabled ? 0.6 : 1,
-    fontSize: size === 'small' ? '14px' : size === 'large' ? '18px' : '16px',
-    fontWeight: 500,
-    transition: 'all 0.2s ease-in-out',
-  };
-
-  const variants = {
-    primary: {
-      backgroundColor: '#337AB7',
-      color: 'white',
-      '&:hover': {
-        backgroundColor: '#337AB7',
-      },
-    },
-  };
-
   return (
     <button
       type={type}
       className={`button ${variant} ${size} ${className || ''}`}
-      style={{ ...baseStyles, ...variants[variant] }}
       onClick={onClick}
       disabled={disabled}
     >
       {startIcon && (
         <span className="button-start-icon">
-          <SvgIcon name={startIcon} />
+          <SvgIcon name={startIcon} width={14} height={14} />
         </span>
       )}
       {children}
@@ -63,7 +33,7 @@ const Button = ({
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  variant: PropTypes.oneOf(['primary', 'secondary', 'outlined']),
+  variant: PropTypes.oneOf(['danger', 'primary', 'outlined', 'icon']),
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
