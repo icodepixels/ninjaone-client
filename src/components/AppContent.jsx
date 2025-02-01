@@ -60,7 +60,7 @@ function AppContent() {
     });
 
   const deviceTypes = data
-    ? ['all', ...new Set(data.map((device) => device.type))]
+    ? ['all', ...new Set(data.map((device) => device.type.toLowerCase()))]
     : ['all'];
 
   const resetFilters = () => {
