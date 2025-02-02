@@ -1,5 +1,4 @@
 # NinjaOne Client
-## React + Vite
 
 ## Getting Started
 
