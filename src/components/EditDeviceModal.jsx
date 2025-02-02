@@ -16,10 +16,10 @@ const EditDeviceModal = ({ isOpen, onClose, device }) => {
 
   useEffect(() => {
     if (device) {
-      setDeviceName(device.system_name);
-      const normalizedType = device.type.toLowerCase();
+      setDeviceName(device?.system_name ?? '');
+      const normalizedType = device?.type?.toLowerCase() ?? '';
       setDeviceType(normalizedType);
-      setHDDCapacity(device.hdd_capacity);
+      setHDDCapacity(device?.hdd_capacity ?? '');
     }
   }, [device]);
 
@@ -30,7 +30,7 @@ const EditDeviceModal = ({ isOpen, onClose, device }) => {
     e.preventDefault();
     dispatch(
       updateDevice({
-        id: device.id,
+        id: device?.id,
         system_name: deviceName,
         type: deviceType,
         hdd_capacity: hddCapacity,

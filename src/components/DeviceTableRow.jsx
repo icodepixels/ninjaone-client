@@ -19,32 +19,32 @@ const DeviceTableRow = ({ row, handleActionButtonClick }) => {
   }, []);
 
   return (
-    <tr key={row.id} className="first-column-content">
+    <tr key={row?.id} className="first-column-content">
       <td>
         <div className="device-row-content">
           <div className="title">
             <SVGIcon
               name={
-                row.type?.toLowerCase() === 'windows'
+                row?.type?.toLowerCase() === 'windows'
                   ? 'Frame394'
-                  : row.type?.toLowerCase() === 'linux'
+                  : row?.type?.toLowerCase() === 'linux'
                     ? 'Frame395'
-                    : row.type?.toLowerCase() === 'mac'
+                    : row?.type?.toLowerCase() === 'mac'
                       ? 'Frame396'
                       : 'Frame395'
               }
             />
-            <span className="title-text">{row.system_name}</span>
+            <span className="title-text">{row?.system_name}</span>
           </div>
           <div className="sub-content">
             <div className="subtitle">
               <span className="subtitle-text">
-                {row.type?.charAt(0).toUpperCase() +
-                  row.type?.slice(1).toLowerCase()}
+                {row?.type?.charAt(0)?.toUpperCase() +
+                  row?.type?.slice(1)?.toLowerCase()}
               </span>{' '}
               workstation
             </div>{' '}
-            - <div className="subtitle">{row.hdd_capacity} GB</div>
+            - <div className="subtitle">{row?.hdd_capacity} GB</div>
           </div>
         </div>
       </td>
@@ -68,7 +68,7 @@ const DeviceTableRow = ({ row, handleActionButtonClick }) => {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                handleActionButtonClick(row.id, 'edit');
+                handleActionButtonClick(row?.id, 'edit');
                 e.currentTarget
                   .closest('.dropdown-menu')
                   .classList.remove('show');
@@ -80,7 +80,7 @@ const DeviceTableRow = ({ row, handleActionButtonClick }) => {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                handleActionButtonClick(row.id, 'delete');
+                handleActionButtonClick(row?.id, 'delete');
                 e.currentTarget
                   .closest('.dropdown-menu')
                   .classList.remove('show');

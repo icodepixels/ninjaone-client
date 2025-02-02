@@ -5,24 +5,29 @@ import '@/styles/BasicModal.css';
 const BasicModal = ({ isOpen, onClose, children }) => {
   useEffect(() => {
     // Prevent scrolling on body when modal is open
-    if (isOpen) {
+    if (isOpen && document?.body) {
       document.body.style.overflow = 'hidden';
-    } else {
+    } else if (document?.body) {
       document.body.style.overflow = 'unset';
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      if (document?.body) {
+        document.body.style.overflow = 'unset';
+      }
     };
   }, [isOpen]);
 
   if (!isOpen) return null;
 
   return (
-    <div className={`modal-overlay ${isOpen ? 'show' : ''}`} onClick={onClose}>
+    <div
+      className={`modal-overlay ${isOpen ? 'show' : ''}`}
+      onClick={(e) => typeof onClose === 'function' && onClose(e)}
+    >
       <div
         className={`modal-content ${isOpen ? 'show' : ''}`}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => e?.stopPropagation()}
       >
         {children}
       </div>

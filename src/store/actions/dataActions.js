@@ -56,10 +56,10 @@ export const fetchDevices = () => {
     dispatch(fetchDataStart());
     try {
       const response = await fetch('http://localhost:3000/devices');
-      const data = await response.json();
+      const data = await (response?.json() || []);
       dispatch(fetchDataSuccess(data));
     } catch (error) {
-      dispatch(fetchDataError(error.message));
+      dispatch(fetchDataError(error?.message || 'Failed to fetch devices'));
     }
   };
 };
@@ -73,12 +73,12 @@ export const addDevice = (device) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(device),
+        body: JSON.stringify(device || {}),
       });
-      const data = await response.json();
+      const data = await (response?.json() || {});
       dispatch(postDataSuccess(data));
     } catch (error) {
-      dispatch(postDataError(error.message));
+      dispatch(postDataError(error?.message || 'Failed to add device'));
     }
   };
 };
@@ -87,16 +87,19 @@ export const updateDevice = (device) => {
   return async (dispatch) => {
     dispatch(putDataStart());
     try {
+      if (!device?.id) {
+        throw new Error('Device ID is required');
+      }
       await fetch(`http://localhost:3000/devices/${device.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(device),
+        body: JSON.stringify(device || {}),
       });
       await dispatch(putDataSuccess(device));
     } catch (error) {
-      dispatch(putDataError(error.message));
+      dispatch(putDataError(error?.message || 'Failed to update device'));
     }
   };
 };
@@ -104,12 +107,15 @@ export const updateDevice = (device) => {
 export const deleteDevice = (id) => {
   return async (dispatch) => {
     try {
+      if (!id) {
+        throw new Error('Device ID is required');
+      }
       await fetch(`http://localhost:3000/devices/${id}`, {
         method: 'DELETE',
       });
       dispatch(deleteDataSuccess(id));
     } catch (error) {
-      dispatch(deleteDataError(error.message));
+      dispatch(deleteDataError(error?.message || 'Failed to delete device'));
     }
   };
 };

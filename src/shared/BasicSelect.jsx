@@ -7,7 +7,7 @@ const BasicSelect = ({
   id,
   value,
   onChange,
-  options,
+  options = [],
   placeholder = 'Select an option',
   required = false,
 }) => {
@@ -15,7 +15,7 @@ const BasicSelect = ({
     <div className="select-wrapper">
       <select
         id={id}
-        value={value}
+        value={value ?? ''}
         onChange={onChange}
         required={required}
         style={{ color: value === '' ? '#6E6D7A' : '#211F33' }}
@@ -27,9 +27,9 @@ const BasicSelect = ({
         >
           {placeholder}
         </option>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
+        {options?.map((option) => (
+          <option key={option?.value} value={option?.value}>
+            {option?.label}
           </option>
         ))}
       </select>

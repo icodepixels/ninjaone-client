@@ -25,10 +25,10 @@ function AppContent() {
 
   const handleActionButtonClick = (id, action) => {
     if (action === 'edit') {
-      setSelectedDevice(data.find((device) => device.id === id));
+      setSelectedDevice(data?.find((device) => device?.id === id));
       setIsEditModalOpen(true);
     } else if (action === 'delete') {
-      setSelectedDevice(data.find((device) => device.id === id));
+      setSelectedDevice(data?.find((device) => device?.id === id));
       setIsDeleteModalOpen(true);
     }
   };
@@ -41,21 +41,21 @@ function AppContent() {
     ?.filter((device) => {
       const matchesType =
         deviceTypeFilter === 'all' ||
-        device.type.toLowerCase() === deviceTypeFilter.toLowerCase();
+        device?.type?.toLowerCase() === deviceTypeFilter?.toLowerCase();
       return matchesType;
     })
     ?.sort((a, b) => {
       // Sort by system_name
-      const nameA = a.system_name.toLowerCase();
-      const nameB = b.system_name.toLowerCase();
+      const nameA = a?.system_name?.toLowerCase();
+      const nameB = b?.system_name?.toLowerCase();
 
       // If there's a search term, prioritize matches
       if (searchTerm) {
-        const searchTermLower = searchTerm.toLowerCase();
-        const aStartsWith = nameA.startsWith(searchTermLower);
-        const bStartsWith = nameB.startsWith(searchTermLower);
-        const aIncludes = nameA.includes(searchTermLower);
-        const bIncludes = nameB.includes(searchTermLower);
+        const searchTermLower = searchTerm?.toLowerCase();
+        const aStartsWith = nameA?.startsWith(searchTermLower);
+        const bStartsWith = nameB?.startsWith(searchTermLower);
+        const aIncludes = nameA?.includes(searchTermLower);
+        const bIncludes = nameB?.includes(searchTermLower);
 
         // Prioritize exact matches at start
         if (aStartsWith && !bStartsWith) return -1;
@@ -66,8 +66,8 @@ function AppContent() {
       }
 
       // Sort by HDD capacity first
-      const hddA = parseInt(a.hdd_capacity);
-      const hddB = parseInt(b.hdd_capacity);
+      const hddA = parseInt(a?.hdd_capacity);
+      const hddB = parseInt(b?.hdd_capacity);
       if (sortByHdd === 'desc') {
         if (hddA !== hddB) return hddB - hddA;
       } else {
@@ -75,11 +75,11 @@ function AppContent() {
       }
 
       // If HDD capacities are equal, sort by name
-      return nameA.localeCompare(nameB);
+      return nameA?.localeCompare(nameB);
     });
 
   const deviceTypes = data
-    ? ['all', ...new Set(data.map((device) => device.type.toLowerCase()))]
+    ? ['all', ...new Set(data?.map((device) => device?.type?.toLowerCase()))]
     : ['all'];
 
   const resetFilters = () => {

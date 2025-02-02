@@ -18,7 +18,7 @@ const AddDeviceModal = ({ isOpen, onClose }) => {
     if (!deviceName || !deviceType || !hddCapacity) {
       return;
     }
-    e.preventDefault();
+    e?.preventDefault();
     dispatch(
       addDevice({
         system_name: deviceName,
@@ -61,7 +61,7 @@ const AddDeviceModal = ({ isOpen, onClose }) => {
             <BasicSelect
               id="deviceType"
               value={deviceType}
-              onChange={(e) => setDeviceType(e.target.value)}
+              onChange={(e) => setDeviceType(e?.target?.value)}
               required
               placeholder="Select type"
               options={[
@@ -77,7 +77,7 @@ const AddDeviceModal = ({ isOpen, onClose }) => {
               type="number"
               id="hddCapacity"
               value={hddCapacity}
-              onChange={(e) => setHDDCapacity(e.target.value)}
+              onChange={(e) => setHDDCapacity(e?.target?.value)}
               required
             />
           </div>

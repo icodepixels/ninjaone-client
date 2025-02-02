@@ -1,18 +1,26 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import '@/styles/SvgIcon.css';
-const SvgIcon = ({ name, className = '', width = 16, height = 16 }) => {
+const SvgIcon = ({ name = '', className = '', width = 16, height = 16 }) => {
   const [svgContent, setSvgContent] = useState('');
 
   useEffect(() => {
     const loadSvg = async () => {
+      if (!name) {
+        console.warn('SVG name is required');
+        return;
+      }
+
       try {
-        // Dynamic import of SVG file
         const response = await fetch(`/src/assets/svg/${name}.svg`);
+        if (!response?.ok) {
+          throw new Error(`HTTP error! status: ${response?.status}`);
+        }
         const text = await response.text();
-        setSvgContent(text);
+        setSvgContent(text || '');
       } catch (error) {
         console.error(`Failed to load SVG: ${name}`, error);
+        setSvgContent(''); // Reset to empty string on error
       }
     };
 
@@ -21,9 +29,9 @@ const SvgIcon = ({ name, className = '', width = 16, height = 16 }) => {
 
   return (
     <div
-      className={`${className} svg-container`}
-      style={{ width, height }}
-      dangerouslySetInnerHTML={{ __html: svgContent }}
+      className={`${className || ''} svg-container`}
+      style={{ width: width || 16, height: height || 16 }}
+      dangerouslySetInnerHTML={{ __html: svgContent || '' }}
     />
   );
 };

@@ -55,8 +55,8 @@ const dataReducer = (state = initialState, action) => {
     case 'UPDATE_DATA_SUCCESS':
       return {
         ...state,
-        data: state.data.map((device) =>
-          device.id === action.payload.id ? action.payload : device
+        data: state.data?.map((device) =>
+          device?.id === action.payload?.id ? action.payload : device
         ),
         loading: false,
       };
@@ -69,7 +69,7 @@ const dataReducer = (state = initialState, action) => {
     case 'DELETE_DATA_SUCCESS':
       return {
         ...state,
-        data: state.data.filter((device) => device.id !== action.payload),
+        data: state.data?.filter((device) => device?.id !== action.payload),
       };
     case 'DELETE_DATA_ERROR':
       return {

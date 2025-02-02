@@ -9,15 +9,21 @@ const Button = ({
   disabled = false,
   onClick,
   type = 'button',
-  className,
+  className = '',
   startIcon,
   endIcon,
 }) => {
+  const handleClick = (e) => {
+    if (onClick && typeof onClick === 'function') {
+      onClick(e);
+    }
+  };
+
   return (
     <button
       type={type}
-      className={`button ${variant} ${size} ${className || ''}`}
-      onClick={onClick}
+      className={`button ${variant || 'primary'} ${size || 'small'} ${className}`}
+      onClick={handleClick}
       disabled={disabled}
     >
       {startIcon && (
