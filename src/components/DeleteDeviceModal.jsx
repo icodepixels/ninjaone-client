@@ -10,7 +10,7 @@ function DeleteDeviceModal({ isOpen, onClose, device }) {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    if (device) {
+    if (device?.id) {
       dispatch(deleteDevice(device.id));
       onClose();
     }
@@ -32,7 +32,7 @@ function DeleteDeviceModal({ isOpen, onClose, device }) {
         <p className="delete-modal-content-text">
           You are about to delete the device{' '}
           <span className="delete-modal-content-text-device-name">
-            {device?.system_name}
+            {device?.system_name?.toUpperCase()}
           </span>
           . This action cannot be undone.
         </p>
