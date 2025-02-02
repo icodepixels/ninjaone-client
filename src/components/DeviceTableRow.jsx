@@ -25,11 +25,11 @@ const DeviceTableRow = ({ row, handleActionButtonClick }) => {
           <div className="title">
             <SVGIcon
               name={
-                row.type.toLowerCase() === 'windows'
+                row.type?.toLowerCase() === 'windows'
                   ? 'Frame394'
-                  : row.type.toLowerCase() === 'linux'
+                  : row.type?.toLowerCase() === 'linux'
                     ? 'Frame395'
-                    : row.type.toLowerCase() === 'mac'
+                    : row.type?.toLowerCase() === 'mac'
                       ? 'Frame396'
                       : 'Frame395'
               }
@@ -39,8 +39,8 @@ const DeviceTableRow = ({ row, handleActionButtonClick }) => {
           <div className="sub-content">
             <div className="subtitle">
               <span className="subtitle-text">
-                {row.type.charAt(0).toUpperCase() +
-                  row.type.slice(1).toLowerCase()}
+                {row.type?.charAt(0).toUpperCase() +
+                  row.type?.slice(1).toLowerCase()}
               </span>{' '}
               workstation
             </div>{' '}

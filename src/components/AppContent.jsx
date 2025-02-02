@@ -14,7 +14,7 @@ import BasicSelect from '@/shared/BasicSelect';
 
 function AppContent() {
   const dispatch = useDispatch();
-  const { data, loading, error } = useSelector((state) => state.data);
+  const { data, error } = useSelector((state) => state.data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedDevice, setSelectedDevice] = useState(null);
@@ -69,9 +69,7 @@ function AppContent() {
     setSortByHdd('desc');
   };
 
-  if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-
   return (
     <div className="main">
       <Header />
@@ -90,7 +88,7 @@ function AppContent() {
           <div className="controls">
             <div className="search-wrapper">
               <span className="search-icon">
-                <SVGIcon name="Frame398" />
+                <SVGIcon name="Frame398" width={20} height={20} />
               </span>
               <input
                 type="text"
