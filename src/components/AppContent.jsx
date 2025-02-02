@@ -39,24 +39,43 @@ function AppContent() {
 
   const filteredData = data
     ?.filter((device) => {
-      const matchesSearch =
-        !searchTerm ||
-        Object.values(device).some((value) =>
-          value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-        );
-
       const matchesType =
-        deviceTypeFilter === 'all' || device.type === deviceTypeFilter;
-
-      return matchesSearch && matchesType;
+        deviceTypeFilter === 'all' ||
+        device.type.toLowerCase() === deviceTypeFilter.toLowerCase();
+      return matchesType;
     })
     ?.sort((a, b) => {
-      if (sortByHdd === 'none') return 0;
-      const capacityA = parseInt(a.hdd_capacity);
-      const capacityB = parseInt(b.hdd_capacity);
-      return sortByHdd === 'asc'
-        ? capacityA - capacityB
-        : capacityB - capacityA;
+      // Sort by system_name
+      const nameA = a.system_name.toLowerCase();
+      const nameB = b.system_name.toLowerCase();
+
+      // If there's a search term, prioritize matches
+      if (searchTerm) {
+        const searchTermLower = searchTerm.toLowerCase();
+        const aStartsWith = nameA.startsWith(searchTermLower);
+        const bStartsWith = nameB.startsWith(searchTermLower);
+        const aIncludes = nameA.includes(searchTermLower);
+        const bIncludes = nameB.includes(searchTermLower);
+
+        // Prioritize exact matches at start
+        if (aStartsWith && !bStartsWith) return -1;
+        if (!aStartsWith && bStartsWith) return 1;
+        // Then prioritize partial matches
+        if (aIncludes && !bIncludes) return -1;
+        if (!aIncludes && bIncludes) return 1;
+      }
+
+      // Sort by HDD capacity first
+      const hddA = parseInt(a.hdd_capacity);
+      const hddB = parseInt(b.hdd_capacity);
+      if (sortByHdd === 'desc') {
+        if (hddA !== hddB) return hddB - hddA;
+      } else {
+        if (hddA !== hddB) return hddA - hddB;
+      }
+
+      // If HDD capacities are equal, sort by name
+      return nameA.localeCompare(nameB);
     });
 
   const deviceTypes = data
@@ -104,7 +123,7 @@ function AppContent() {
               onChange={(e) => setDeviceTypeFilter(e.target.value)}
               options={deviceTypes.map((type) => ({
                 value: type,
-                label: `Device Type: ${type === 'all' ? 'All' : type}`,
+                label: `Device Type: ${type === 'all' ? 'All' : type.toUpperCase()}`,
               }))}
             />
             <BasicSelect
