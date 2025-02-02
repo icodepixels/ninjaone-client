@@ -10,22 +10,20 @@ vi.mock('@/shared/SVGIcon', () => ({
 }));
 
 vi.mock('@/shared/BasicModal', () => ({
-  default: ({ children, isOpen }) => isOpen ? <div>{children}</div> : null,
+  default: ({ children, isOpen }) => (isOpen ? <div>{children}</div> : null),
 }));
 
 vi.mock('@/shared/BasicButton', () => ({
   default: ({ children, onClick, type }) => (
-    <button onClick={onClick} type={type}>{children}</button>
+    <button onClick={onClick} type={type}>
+      {children}
+    </button>
   ),
 }));
 
 vi.mock('@/shared/BasicSelect', () => ({
   default: ({ value, onChange, id }) => (
-    <select
-      data-testid={id}
-      value={value}
-      onChange={onChange}
-    >
+    <select data-testid={id} value={value} onChange={onChange}>
       <option value="windows">Windows workstation</option>
       <option value="mac">Mac workstation</option>
       <option value="linux">Linux workstation</option>

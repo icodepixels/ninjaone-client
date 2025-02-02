@@ -51,7 +51,8 @@ describe('BasicModal', () => {
       </BasicModal>
     );
 
-    const modalContentElement = container.getElementsByClassName('modal-content')[0];
+    const modalContentElement =
+      container.getElementsByClassName('modal-content')[0];
     fireEvent.click(modalContentElement);
 
     expect(mockOnClose).not.toHaveBeenCalled();

@@ -1,13 +1,15 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, test, expect, vi } from 'vitest';
-import BasicButton from "@/shared/BasicButton";
+import BasicButton from '@/shared/BasicButton';
 
-test("renders a button with the correct text", () => {
-  render(<BasicButton type="button" onClick={() => "Clicked"} variant="outlined">
-            Cancel
-          </BasicButton>);
+test('renders a button with the correct text', () => {
+  render(
+    <BasicButton type="button" onClick={() => 'Clicked'} variant="outlined">
+      Cancel
+    </BasicButton>
+  );
 
-  const buttonElement = screen.getByRole("button", { name: "Cancel" });
+  const buttonElement = screen.getByRole('button', { name: 'Cancel' });
   expect(buttonElement).toBeInTheDocument();
 });
 

@@ -30,7 +30,7 @@ describe('BasicSelect', () => {
   it('renders all options correctly', () => {
     render(<BasicSelect {...defaultProps} />);
 
-    mockOptions.forEach(option => {
+    mockOptions.forEach((option) => {
       expect(screen.getByText(option.label)).toBeInTheDocument();
     });
   });

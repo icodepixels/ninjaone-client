@@ -6,39 +6,46 @@ import AppContent from './AppContent';
 
 // Mock the redux store and actions
 vi.mock('@/store/actions/dataActions', () => ({
-  fetchDevices: vi.fn(() => ({ type: 'FETCH_DEVICES' }))
+  fetchDevices: vi.fn(() => ({ type: 'FETCH_DEVICES' })),
 }));
 
 // Mock child components
 vi.mock('@/components/Header', () => ({
-  default: () => <div data-testid="mock-header">Header</div>
+  default: () => <div data-testid="mock-header">Header</div>,
 }));
 
 vi.mock('@/components/DeviceTable', () => ({
   default: ({ data, handleActionButtonClick }) => (
     <div data-testid="mock-device-table">
-      {data?.map(device => (
+      {data?.map((device) => (
         <div key={device.id}>
           {device.system_name}
-          <button onClick={() => handleActionButtonClick(device.id, 'edit')}>Edit</button>
-          <button onClick={() => handleActionButtonClick(device.id, 'delete')}>Delete</button>
+          <button onClick={() => handleActionButtonClick(device.id, 'edit')}>
+            Edit
+          </button>
+          <button onClick={() => handleActionButtonClick(device.id, 'delete')}>
+            Delete
+          </button>
         </div>
       ))}
     </div>
-  )
+  ),
 }));
 
 // Mock modal components
 vi.mock('@/components/AddDeviceModal', () => ({
-  default: ({ isOpen }) => isOpen ? <div data-testid="add-device-modal">Add Modal</div> : null
+  default: ({ isOpen }) =>
+    isOpen ? <div data-testid="add-device-modal">Add Modal</div> : null,
 }));
 
 vi.mock('@/components/EditDeviceModal', () => ({
-  default: ({ isOpen }) => isOpen ? <div data-testid="edit-device-modal">Edit Modal</div> : null
+  default: ({ isOpen }) =>
+    isOpen ? <div data-testid="edit-device-modal">Edit Modal</div> : null,
 }));
 
 vi.mock('@/components/DeleteDeviceModal', () => ({
-  default: ({ isOpen }) => isOpen ? <div data-testid="delete-device-modal">Delete Modal</div> : null
+  default: ({ isOpen }) =>
+    isOpen ? <div data-testid="delete-device-modal">Delete Modal</div> : null,
 }));
 
 describe('AppContent', () => {
@@ -47,8 +54,8 @@ describe('AppContent', () => {
   beforeEach(() => {
     store = configureStore({
       reducer: {
-        data: (state = { data: [], error: null }) => state
-      }
+        data: (state = { data: [], error: null }) => state,
+      },
     });
   });
 
@@ -77,16 +84,16 @@ describe('AppContent', () => {
   it('filters devices based on search term', async () => {
     const mockData = [
       { id: 1, system_name: 'Device 1', type: 'windows', hdd_capacity: '100' },
-      { id: 2, system_name: 'Server 2', type: 'linux', hdd_capacity: '200' }
+      { id: 2, system_name: 'Server 2', type: 'linux', hdd_capacity: '200' },
     ];
 
     const mockStore = configureStore({
       reducer: {
         data: () => ({
           data: mockData,
-          error: null
-        })
-      }
+          error: null,
+        }),
+      },
     });
 
     // Create a container to check what's actually being rendered
@@ -120,12 +127,22 @@ describe('AppContent', () => {
       reducer: {
         data: () => ({
           data: [
-            { id: 1, system_name: 'Device 1', type: 'windows', hdd_capacity: '100' },
-            { id: 2, system_name: 'Server 2', type: 'linux', hdd_capacity: '200' }
+            {
+              id: 1,
+              system_name: 'Device 1',
+              type: 'windows',
+              hdd_capacity: '100',
+            },
+            {
+              id: 2,
+              system_name: 'Server 2',
+              type: 'linux',
+              hdd_capacity: '200',
+            },
           ],
-          error: null
-        })
-      }
+          error: null,
+        }),
+      },
     });
 
     render(
@@ -142,8 +159,8 @@ describe('AppContent', () => {
   it('displays error message when there is an error', () => {
     const errorStore = configureStore({
       reducer: {
-        data: (state = { data: [], error: 'Test error message' }) => state
-      }
+        data: (state = { data: [], error: 'Test error message' }) => state,
+      },
     });
 
     render(
