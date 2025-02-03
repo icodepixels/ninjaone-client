@@ -1,4 +1,13 @@
-# NinjaOne Client
+# NinjaOne Client - Device Management Application
+
+A React-based web application for managing device inventory across Windows, Mac, and Linux systems. This project was completed as part of the NinjaOne developer assessment.
+
+## Features
+
+- **Device Management**: Full CRUD operations for devices (Windows, Mac, Linux)
+- **Filtering**: A multi select filter to filter devices by system type
+- **Sorting**: Sort devices by system name or HDD capacity
+- **Responsive Design**: Follows provided Figma design specifications with focus on responsive design for mobile, tablet, and desktop devices
 
 ## Getting Started
 
@@ -14,48 +23,61 @@ npm install
 npm run dev
 ```
 
-3. Build for production:
+The application will be available at `http://localhost:5173`
+
+## Building for Production
 
 ```bash
 npm run build
 ```
 
-The development server will be available at `http://localhost:5173`
-
-## Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run format` - Format code with Prettier
-- `npm test` - Run test suite
-
 ## Testing
 
-The project uses Vitest and React Testing Library for testing. To run the tests:
+The project uses Vitest and React Testing Library for comprehensive testing. Run the test suite:
 
-1. Run all tests once:
 ```bash
 npm test
 ```
 
-## System Requirements
+## Project Structure
 
-- Node.js (v18.0.0 or higher recommended)
-- npm (v8.0.0 or higher)
+- `/src/components` - React components
+- `/src/redux` - Redux state management
+- `/src/services` - API services
+- `/src/utils` - Helper functions
+- `/src/*.test.jsx` - Test files
 
-## Dependencies
+## Technologies Used
 
 ### Core Dependencies
-- React 18.x - A JavaScript library for building user interfaces
-- React DOM 18.x - React package for working with the DOM
-- Vite 5.x - Next generation frontend tooling
+- React 18.x - Frontend framework
+- Redux Toolkit - State management
+- Axios - HTTP client for API requests
+- React Testing Library - Testing framework
 
-### Development Dependencies
-- @vitejs/plugin-react - Official React plugin for Vite
-- ESLint - JavaScript linting utility
-- ESLint plugins:
-  - eslint-plugin-react
-  - eslint-plugin-react-hooks
-  - eslint-plugin-react-refresh
+### Development Tools
+- Vite - Build tool and development server
+- ESLint - Code linting
+- Prettier - Code formatting
+- Vitest - Testing framework
 
+## System Requirements
 
+- Node.js (v18.0.0 or higher)
+- npm (v8.0.0 or higher)
+
+## API Integration
+
+This application connects to the NinjaOne backend server for device management operations. Ensure the backend server is running before starting the application.
+
+## Additional Features
+
+- Comprehensive test coverage
+- Clean code architecture
+- Responsive UI following Figma designs
+- Error handling and loading states
+- Input validation
+
+## License
+
+This project is private and was created as part of the NinjaOne developer assessment.
