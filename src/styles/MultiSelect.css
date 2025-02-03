@@ -1,0 +1,101 @@
+.select-wrapper {
+  font-size: 0.875rem;  /* 14px */
+  height: 2.392rem;
+  max-width: 18.75rem;  /* 300px */
+  position: relative;
+  width: 100%;
+}
+
+.select-placeholder {
+  align-items: center;
+  background: white;
+  border: 0.0625rem solid #E0E0E0;  /* 1px */
+  border-radius: 0.25rem;  /* 4px */
+  color: #211F33;
+  cursor: pointer;
+  display: flex;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;  /* 14px */
+  padding: 0.478rem 0.75rem;  /* 38.27px 12px */
+  transition: border-color 0.2s ease;
+}
+
+.select-placeholder:hover {
+  border-color: #999;
+}
+
+.select-wrapper select[multiple] {
+  background-color: white;
+  border: 0.0625rem solid #E0E0E0;  /* 1px */
+  border-radius: 0.25rem;  /* 4px */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);  /* 2px 4px */
+  color: #211F33;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;  /* 14px */
+  left: 0;
+  margin-top: 0.25rem;  /* 4px */
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: 1000;
+}
+
+.select-wrapper select[multiple] option {
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;  /* 8px 12px */
+}
+
+.select-wrapper select[multiple] option:hover {
+  background-color: #F7F7F8;
+}
+
+.select-wrapper select[multiple] option:checked {
+  background: #e8e8ed linear-gradient(0deg, #e8e8ed 0%, #e8e8ed 100%);
+  color: #211F33;
+}
+
+.select-wrapper-multiple select[multiple] {
+  min-height: 7.5rem;  /* 120px */
+  padding: 0.5rem;  /* 8px */
+}
+
+.select-wrapper-multiple select[multiple] option {
+  border-radius: 0.25rem;  /* 4px */
+  margin: 0.125rem 0;  /* 2px 0 */
+  padding: 0.5rem;  /* 8px */
+}
+
+.select-wrapper-multiple select[multiple] option:checked {
+  background: #e8e8ed linear-gradient(0deg, #e8e8ed 0%, #e8e8ed 100%);
+  color: #211F33;
+}
+
+.select-wrapper-multiple .select-wrapper {
+  background: white;
+  border: 0.0625rem solid #E0E0E0;  /* 1px */
+  border-radius: 0.25rem;  /* 4px */
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;  /* 8px 12px */
+  position: relative;
+  width: 100%;
+}
+
+.select-wrapper-multiple .selected-options {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: calc(100% - 1.25rem);  /* 20px */
+}
+
+.select-wrapper-multiple .select-icon {
+  pointer-events: none;
+  position: absolute;
+  right: 0.75rem;  /* 12px */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.select-wrapper-multiple option.selected-option {
+  background-color: #cccccc;
+  color: #211F33;
+}

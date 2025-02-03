@@ -1,7 +1,7 @@
 import '@/styles/AppContent.css';
 import Button from '@/shared/BasicButton';
 import Header from '@/components/Header';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDevices } from '@/store/actions/dataActions';
@@ -11,6 +11,7 @@ import EditDeviceModal from '@/components/EditDeviceModal';
 import DeleteDeviceModal from '@/components/DeleteDeviceModal';
 import SVGIcon from '@/shared/SVGIcon';
 import BasicSelect from '@/shared/BasicSelect';
+import MultiSelect from '@/shared/MultiSelect';
 
 function AppContent() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function AppContent() {
   const [selectedDevice, setSelectedDevice] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [deviceTypeFilter, setDeviceTypeFilter] = useState('all');
+  const [deviceTypeFilter, setDeviceTypeFilter] = useState(['all']);
   const [sortByHdd, setSortByHdd] = useState('desc');
 
   const handleActionButtonClick = (id, action) => {
@@ -37,54 +38,56 @@ function AppContent() {
     dispatch(fetchDevices());
   }, [dispatch]);
 
-  const filteredData = data
-    ?.filter((device) => {
-      const matchesType =
-        deviceTypeFilter === 'all' ||
-        device?.type?.toLowerCase() === deviceTypeFilter?.toLowerCase();
-      return matchesType;
-    })
-    ?.sort((a, b) => {
-      // Sort by system_name
-      const nameA = a?.system_name?.toLowerCase();
-      const nameB = b?.system_name?.toLowerCase();
+  const filteredData = useMemo(() => {
+    if (!data) return [];
 
-      // If there's a search term, prioritize matches
-      if (searchTerm) {
-        const searchTermLower = searchTerm?.toLowerCase();
-        const aStartsWith = nameA?.startsWith(searchTermLower);
-        const bStartsWith = nameB?.startsWith(searchTermLower);
-        const aIncludes = nameA?.includes(searchTermLower);
-        const bIncludes = nameB?.includes(searchTermLower);
+    return data
+      .filter((device) => {
+        if (!device) return false;
+        if (deviceTypeFilter.includes('all') || deviceTypeFilter.length === 0) {
+          return true;
+        }
+        return device.type && deviceTypeFilter.includes(device.type.toLowerCase());
+      })
+      .sort((a, b) => {
+        if (!a || !b) return 0;
 
-        // Prioritize exact matches at start
-        if (aStartsWith && !bStartsWith) return -1;
-        if (!aStartsWith && bStartsWith) return 1;
-        // Then prioritize partial matches
-        if (aIncludes && !bIncludes) return -1;
-        if (!aIncludes && bIncludes) return 1;
-      }
+        const nameA = a.system_name?.toLowerCase() || '';
+        const nameB = b.system_name?.toLowerCase() || '';
 
-      // Sort by HDD capacity first
-      const hddA = parseInt(a?.hdd_capacity);
-      const hddB = parseInt(b?.hdd_capacity);
-      if (sortByHdd === 'desc') {
-        if (hddA !== hddB) return hddB - hddA;
-      } else {
-        if (hddA !== hddB) return hddA - hddB;
-      }
+        if (searchTerm) {
+          const searchTermLower = searchTerm.toLowerCase();
+          const aStartsWith = nameA.startsWith(searchTermLower);
+          const bStartsWith = nameB.startsWith(searchTermLower);
+          const aIncludes = nameA.includes(searchTermLower);
+          const bIncludes = nameB.includes(searchTermLower);
 
-      // If HDD capacities are equal, sort by name
-      return nameA?.localeCompare(nameB);
-    });
+          if (aStartsWith && !bStartsWith) return -1;
+          if (!aStartsWith && bStartsWith) return 1;
+          if (aIncludes && !bIncludes) return -1;
+          if (!aIncludes && bIncludes) return 1;
+        }
 
-  const deviceTypes = data
-    ? ['all', ...new Set(data?.map((device) => device?.type?.toLowerCase()))]
-    : ['all'];
+        const hddA = parseInt(a.hdd_capacity) || 0;
+        const hddB = parseInt(b.hdd_capacity) || 0;
+
+        const hddCompare = sortByHdd === 'desc' ? hddB - hddA : hddA - hddB;
+        return hddCompare || nameA.localeCompare(nameB);
+      });
+  }, [data, deviceTypeFilter, searchTerm, sortByHdd]);
+
+  const deviceTypes = useMemo(() => {
+    if (!data) return ['all'];
+    const types = new Set(data
+      .filter(device => device?.type)
+      .map(device => device.type.toLowerCase())
+    );
+    return ['all', ...types];
+  }, [data]);
 
   const resetFilters = () => {
     setSearchTerm('');
-    setDeviceTypeFilter('all');
+    setDeviceTypeFilter(['all']);
     setSortByHdd('desc');
   };
 
@@ -117,14 +120,38 @@ function AppContent() {
                 className="search-input"
               />
             </div>
-            <BasicSelect
+            <MultiSelect
               hidePlaceholder={true}
+              label="Device Type"
               value={deviceTypeFilter}
-              onChange={(e) => setDeviceTypeFilter(e.target.value)}
+              onChange={(selected) => {
+                let updatedFilter;
+                const selectedOption = selected?.[0];
+
+                if (selectedOption === 'all') {
+                  // If 'all' is selected, make it the only option
+                  updatedFilter = ['all'];
+                } else {
+                  // Remove 'all' if it exists and toggle the selected option
+                  const filterWithoutAll = deviceTypeFilter.filter(type => type !== 'all');
+                  updatedFilter = filterWithoutAll.includes(selectedOption)
+                    ? filterWithoutAll.filter(type => type !== selectedOption)
+                    : [...filterWithoutAll, selectedOption];
+
+                  // If no options are selected, default back to 'all'
+                  if (updatedFilter.length === 0) {
+                    updatedFilter = ['all'];
+                  }
+                }
+
+                setDeviceTypeFilter(updatedFilter);
+              }}
               options={deviceTypes.map((type) => ({
                 value: type,
-                label: `Device Type: ${type === 'all' ? 'All' : type.toUpperCase()}`,
+                label: `${type === 'all' ? 'All' : type.toUpperCase()}`,
               }))}
+              multiple={true}
+              values={deviceTypeFilter}
             />
             <BasicSelect
               hidePlaceholder={true}

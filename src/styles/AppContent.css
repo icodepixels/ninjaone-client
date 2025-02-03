@@ -56,3 +56,9 @@
   font-size: 14px;
   font-weight: 400;
 }
+
+@media screen and (max-width: 600px) {
+  .controls {
+    flex-wrap: wrap;
+  }
+}
