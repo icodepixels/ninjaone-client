@@ -5,7 +5,7 @@ A React-based web application for managing device inventory across Windows, Mac,
 ## Features
 
 - **Device Management**: Full CRUD operations for devices (Windows, Mac, Linux)
-- **Filtering**: A multi select filter to filter devices by system type
+- **Filtering**: Filter devices by system type with multi-select support (Windows, Mac, and Linux)
 - **Sorting**: Sort devices by system name or HDD capacity
 - **Responsive Design**: Follows provided Figma design specifications with focus on responsive design for mobile, tablet, and desktop devices
 
