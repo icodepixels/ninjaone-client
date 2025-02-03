@@ -41,7 +41,7 @@ const MultiSelect = ({
           value={values}
           onChange={handleChange}
           required={required}
-          style={{ color: values.length === 0 ? '#6E6D7A' : '#211F33', padding: '0' }}
+          style={{ color: values.length === 0 ? '#6E6D7A' : '#211F33', padding: '0', minHeight: '144px' }}
         >
           {options?.map((option) => (
             <option
